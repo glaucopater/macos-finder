@@ -73,7 +73,7 @@ describe("test file actions", () => {
         type: ReducerActionType.EDIT_FILE,
         payload: {
           folderId: sampleState[0].id,
-          file: sampleState[0].files?.at(0)!
+          file: sampleState[0].files?.at(0)!,
         },
       });
       dispatch({

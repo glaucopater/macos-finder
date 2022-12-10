@@ -33,7 +33,7 @@ export const useFinderReducer: Reducer<FolderProps[], ReducerAction> = (
       )[0];
       const updatedFolder = {
         ...selectedFolder,
-        files: [...selectedFolder.files || [], createdFile],
+        files: [...(selectedFolder.files || []), createdFile],
       };
       const theOtherFolders = state.filter(
         (folder) => folder.id !== selectedFolder.id
@@ -78,7 +78,7 @@ export const useFinderReducer: Reducer<FolderProps[], ReducerAction> = (
       }
       const toFolder = state.find((folder) => folder.id === toFolderId);
       if (toFolder && fromFolderOriginalFile) {
-        toFolder.files = [...toFolder.files || [], fromFolderOriginalFile];
+        toFolder.files = [...(toFolder.files || []), fromFolderOriginalFile];
       }
       return sortArrayById([
         ...state.filter(
