@@ -2,13 +2,13 @@ import { File, FileProps } from "../File";
 import { SetStateAction, useContext, useState } from "react";
 import { FinderContext, ContextProps } from "../../contexts/FinderContext";
 import { AddFileButton } from "../AddFileButton";
-import { FilesCounter } from "../FilesCounter";
 import "./Folder.css";
 
 export type FolderProps = {
   id: number;
   name: string;
-  files: FileProps[];
+  files?: FileProps[];
+  folders?: FolderProps[];
 };
 
 // each list could have different height, but the width should be dynamic
@@ -65,13 +65,13 @@ export const Folder = (folderProps: FolderProps) => {
       onDrop={handleOnDrop}
       onDragOver={handleOnDragOver}
     >
-      <div className="Folder-Header">
-        <span
-          className="Folder-Name"
-          onClick={handleEditName}
-          onBlur={handleSaveName}
-          onKeyDown={handleOnKeyDown}
-        >
+      <div
+        className="Folder-Header"
+        onClick={handleEditName}
+        onBlur={handleSaveName}
+        onKeyDown={handleOnKeyDown}
+      >
+        <span className="Folder-Name">
           {isEditable ? (
             <input
               className="Folder-Input"
@@ -83,10 +83,10 @@ export const Folder = (folderProps: FolderProps) => {
             currentName
           )}
         </span>
-        <FilesCounter count={files.length} />
+        ➡️
       </div>
       <ul className="File-List">
-        {files.map((item, index) => (
+        {files?.map((item, index) => (
           <li key={index}>
             <File {...item} currentFolderId={id} />
           </li>

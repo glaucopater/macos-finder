@@ -2,7 +2,7 @@ import "./Header.css";
 
 export const TitleImage = () => (
   <span role="img" aria-labelledby="title-image">
-    📁
+    📄
   </span>
 );
 

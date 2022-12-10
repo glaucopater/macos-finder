@@ -12,15 +12,23 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
 }
 
 .Folder-Name {
+  display: flex;
   padding: 4px;
   font-weight: 700;
   font-size: smaller;
   position: sticky;
   top: 0px;
   background: #ebecf0;
+  width: 100%;
+}
+
+.Folder-Name::before {
+  margin-right: 4px;
+  content: "📁";
 }
 
 .Folder-Name:hover {
@@ -29,7 +37,7 @@
 }
 
 .Folder-Input {
-  width: 150px;
+  width: 100%;
 }
 
 .File-List {
@@ -40,4 +48,9 @@
   list-style-type: none;
   padding: 0;
   overflow-y: auto;
+}
+
+.Folder input {
+  background: blue;
+  color: #fefefe;
 }

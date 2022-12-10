@@ -4,10 +4,10 @@ import { FolderProps } from "../../components/Folder";
 export enum ReducerActionType {
   CREATE_FOLDER,
   EDIT_FOLDER,
-  CREATE_CARD,
-  DELETE_CARD,
-  EDIT_CARD,
-  MOVE_CARD,
+  CREATE_FILE,
+  DELETE_FILE,
+  EDIT_FILE,
+  MOVE_FILE,
   LOAD_LOCALSTORAGE,
   UPDATE_LOCALSTORAGE,
   RESET_FINDER,
@@ -24,22 +24,22 @@ export type EditFolderAction = {
 };
 
 export type CreateFileAction = {
-  type: ReducerActionType.CREATE_CARD;
+  type: ReducerActionType.CREATE_FILE;
   payload: FolderProps;
 };
 
 export type MoveFileAction = {
-  type: ReducerActionType.MOVE_CARD;
+  type: ReducerActionType.MOVE_FILE;
   payload: { id: string; fromFolderId: number; toFolderId: number };
 };
 
 export type EditFileAction = {
-  type: ReducerActionType.EDIT_CARD;
+  type: ReducerActionType.EDIT_FILE;
   payload: { file: FileProps; folderId: number };
 };
 
 export type DeleteFileAction = {
-  type: ReducerActionType.DELETE_CARD;
+  type: ReducerActionType.DELETE_FILE;
   payload: { folderId: number; fileId: string };
 };
 

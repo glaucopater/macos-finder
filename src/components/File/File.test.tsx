@@ -29,6 +29,7 @@ const mockContextProps: ContextProps = {
 
 describe("file", () => {
   it("should test edit and cancel buttons", () => {
+    // @ts-ignore next
     const mockFileProps = sampleState[0].files[0];
 
     const { getAllByRole } = render(
@@ -47,6 +48,7 @@ describe("file", () => {
   });
 
   it("should test edit and save buttons", () => {
+    // @ts-ignore next
     const mockFileProps = sampleState[0].files[0];
 
     const { getAllByRole } = render(

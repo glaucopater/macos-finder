@@ -24,28 +24,28 @@ export const useFinderReducer: Reducer<FolderProps[], ReducerAction> = (
         ...state.filter((folder) => folder.id !== folderToBeUpdated.id),
         folderToBeUpdated,
       ]);
-    case ReducerActionType.CREATE_CARD:
+    case ReducerActionType.CREATE_FILE:
       const selectedFolderId = action.payload;
       const newId = generateRandomId();
-      const createdFile = { id: newId, content: "File " + newId };
+      const createdFile = { id: newId, content: "📄" + newId };
       const selectedFolder = state.filter(
         (folder) => folder.id === selectedFolderId.id
       )[0];
       const updatedFolder = {
         ...selectedFolder,
-        files: [...selectedFolder.files, createdFile],
+        files: [...selectedFolder.files || [], createdFile],
       };
       const theOtherFolders = state.filter(
         (folder) => folder.id !== selectedFolder.id
       );
       return sortArrayById([...theOtherFolders, updatedFolder]);
-    case ReducerActionType.DELETE_CARD:
+    case ReducerActionType.DELETE_FILE:
       // delete file by folder id and file id
       const { folderId, fileId } = action.payload;
       const currentFolder = state.find((folder) => folder.id === folderId);
       const folderToBeUdpated = currentFolder;
       if (folderToBeUdpated) {
-        folderToBeUdpated.files = currentFolder.files.filter(
+        folderToBeUdpated.files = currentFolder.files?.filter(
           (file) => file.id !== fileId
         );
       }
@@ -54,12 +54,12 @@ export const useFinderReducer: Reducer<FolderProps[], ReducerAction> = (
         folderToBeUdpated,
       ]);
 
-    case ReducerActionType.EDIT_CARD: {
+    case ReducerActionType.EDIT_FILE: {
       // edit file by content and folder and id
       const { file: editedFile, folderId } = action.payload;
       const folderToBeUpdated = state.find((folder) => folder.id === folderId);
       if (folderToBeUpdated) {
-        folderToBeUpdated.files = folderToBeUpdated.files.map((file) => {
+        folderToBeUpdated.files = folderToBeUpdated.files?.map((file) => {
           if (file.id === editedFile.id) return editedFile;
           return file;
         });
@@ -67,18 +67,18 @@ export const useFinderReducer: Reducer<FolderProps[], ReducerAction> = (
       const theOtherFolders = state.filter((folder) => folder.id !== folderId);
       return sortArrayById([...theOtherFolders, folderToBeUpdated]);
     }
-    case ReducerActionType.MOVE_CARD: {
+    case ReducerActionType.MOVE_FILE: {
       const { id, fromFolderId, toFolderId } = action.payload;
       // find this folder in store
       const fromFolder = state.find((folder) => folder.id === fromFolderId);
       const fromFolderOriginalFile =
-        fromFolder?.files.find((file) => file.id === id) || null;
+        fromFolder?.files?.find((file) => file.id === id) || null;
       if (fromFolder) {
-        fromFolder.files = fromFolder.files.filter((file) => file.id !== id);
+        fromFolder.files = fromFolder.files?.filter((file) => file.id !== id);
       }
       const toFolder = state.find((folder) => folder.id === toFolderId);
       if (toFolder && fromFolderOriginalFile) {
-        toFolder.files = [...toFolder.files, fromFolderOriginalFile];
+        toFolder.files = [...toFolder.files || [], fromFolderOriginalFile];
       }
       return sortArrayById([
         ...state.filter(

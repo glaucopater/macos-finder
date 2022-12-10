@@ -41,28 +41,28 @@ export const FinderProvider = ({ children }: { children: React.ReactNode }) => {
     },
     addFile: (folderId: number) => {
       dispatch({
-        type: ReducerActionType.CREATE_CARD,
+        type: ReducerActionType.CREATE_FILE,
         payload: { id: folderId, name: "New!", files: [] },
       });
       dispatch({ type: ReducerActionType.UPDATE_LOCALSTORAGE, payload: state });
     },
     deleteFile: (folderId: number, fileId: string) => {
       dispatch({
-        type: ReducerActionType.DELETE_CARD,
+        type: ReducerActionType.DELETE_FILE,
         payload: { folderId, fileId },
       });
       dispatch({ type: ReducerActionType.UPDATE_LOCALSTORAGE, payload: state });
     },
     editFile: (file: FileProps, folderId: number) => {
       dispatch({
-        type: ReducerActionType.EDIT_CARD,
+        type: ReducerActionType.EDIT_FILE,
         payload: { file, folderId },
       });
       dispatch({ type: ReducerActionType.UPDATE_LOCALSTORAGE, payload: state });
     },
     moveFile: (id: string, fromFolderId: number, toFolderId: number) => {
       dispatch({
-        type: ReducerActionType.MOVE_CARD,
+        type: ReducerActionType.MOVE_FILE,
         payload: { id, fromFolderId, toFolderId },
       });
       dispatch({ type: ReducerActionType.UPDATE_LOCALSTORAGE, payload: state });
