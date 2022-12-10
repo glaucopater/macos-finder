@@ -10,9 +10,14 @@ export const Finder = () => {
 
   return (
     <div className="Finder">
-      {state?.map((folder: JSX.IntrinsicAttributes & FolderProps, index: Key | null | undefined) => (
-        <Folder key={index} {...folder} />
-      ))}
+      {state?.map(
+        (
+          folder: JSX.IntrinsicAttributes & FolderProps,
+          index: Key | null | undefined
+        ) => (
+          <Folder key={index} {...folder} />
+        )
+      )}
       <AddFolderButton />
     </div>
   );

@@ -1,6 +1,6 @@
 .Header {
   padding: 8px;
-  background:  rgb(216, 216, 216);
+  background: rgb(216, 216, 216);
   color: #111;
   display: flex;
   flex-direction: row;
@@ -12,7 +12,6 @@
 .HeaderTitle {
   padding: 8px;
 }
-
 
 #footer {
   margin: 0 auto;

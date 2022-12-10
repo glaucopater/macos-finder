@@ -8,9 +8,7 @@ describe("utils", () => {
   });
 
   it("should sort an array of objects by id", () => {
-    const result = sortArrayById(randomOrderState).map(
-      (folder) => folder.id
-    );
+    const result = sortArrayById(randomOrderState).map((folder) => folder.id);
     expect(result).toMatchObject([1, 2, 3]);
   });
 });

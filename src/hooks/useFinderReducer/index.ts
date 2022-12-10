@@ -42,9 +42,7 @@ export const useFinderReducer: Reducer<FolderProps[], ReducerAction> = (
     case ReducerActionType.DELETE_CARD:
       // delete file by folder id and file id
       const { folderId, fileId } = action.payload;
-      const currentFolder = state.find(
-        (folder) => folder.id === folderId
-      );
+      const currentFolder = state.find((folder) => folder.id === folderId);
       const folderToBeUdpated = currentFolder;
       if (folderToBeUdpated) {
         folderToBeUdpated.files = currentFolder.files.filter(
@@ -59,32 +57,24 @@ export const useFinderReducer: Reducer<FolderProps[], ReducerAction> = (
     case ReducerActionType.EDIT_CARD: {
       // edit file by content and folder and id
       const { file: editedFile, folderId } = action.payload;
-      const folderToBeUpdated = state.find(
-        (folder) => folder.id === folderId
-      );
+      const folderToBeUpdated = state.find((folder) => folder.id === folderId);
       if (folderToBeUpdated) {
         folderToBeUpdated.files = folderToBeUpdated.files.map((file) => {
           if (file.id === editedFile.id) return editedFile;
           return file;
         });
       }
-      const theOtherFolders = state.filter(
-        (folder) => folder.id !== folderId
-      );
+      const theOtherFolders = state.filter((folder) => folder.id !== folderId);
       return sortArrayById([...theOtherFolders, folderToBeUpdated]);
     }
     case ReducerActionType.MOVE_CARD: {
       const { id, fromFolderId, toFolderId } = action.payload;
       // find this folder in store
-      const fromFolder = state.find(
-        (folder) => folder.id === fromFolderId
-      );
+      const fromFolder = state.find((folder) => folder.id === fromFolderId);
       const fromFolderOriginalFile =
         fromFolder?.files.find((file) => file.id === id) || null;
       if (fromFolder) {
-        fromFolder.files = fromFolder.files.filter(
-          (file) => file.id !== id
-        );
+        fromFolder.files = fromFolder.files.filter((file) => file.id !== id);
       }
       const toFolder = state.find((folder) => folder.id === toFolderId);
       if (toFolder && fromFolderOriginalFile) {
@@ -92,8 +82,7 @@ export const useFinderReducer: Reducer<FolderProps[], ReducerAction> = (
       }
       return sortArrayById([
         ...state.filter(
-          (folder) =>
-            folder.id !== fromFolderId && folder.id !== toFolderId
+          (folder) => folder.id !== fromFolderId && folder.id !== toFolderId
         ),
         fromFolder,
         toFolder,

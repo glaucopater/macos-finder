@@ -2,7 +2,6 @@ import { initialState } from "../store";
 
 export const generateRandomInt = () => {
   const array = new Uint32Array(1);
-  // eslint-disable-next-line no-restricted-globals
   self.crypto.getRandomValues(array);
   return array[0];
 };

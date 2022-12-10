@@ -1,8 +1,8 @@
 import { render, fireEvent } from "@testing-library/react";
-import { FinderContext, ContextProps } from "../../contexts/FinderContext";
 import { Folder } from ".";
 import { getInitialState } from "../../utils";
 import { Finder } from "../../containers/Finder";
+import { ContextProps, FinderContext } from "../../contexts/FinderContext";
 
 const mockContextProps: ContextProps = {
   addFile: jest.fn(),
