@@ -1,0 +1,49 @@
+.File {
+  margin: 2px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background: #ffffff;
+  max-height: 300px;
+  overflow-y: auto;
+  transition: ease-in-out 300ms;
+  display: flex;
+  justify-content: space-between;
+}
+
+.File:hover {
+  background: #ffffff50;
+  cursor: move;
+  transition: ease-in-out 300ms;
+}
+
+.File-Content {
+  padding: 4px;
+}
+
+.File-Actions,
+.File-Actions-Edit {
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+  transition: ease-in-out 300ms;
+}
+
+.File-Actions > button :hover {
+  transition: ease-in-out 300ms;
+}
+
+.File-Actions > button,
+.File-Actions-Edit > button {
+  border: none;
+  background: none;
+  opacity: 0.3;
+  transition: ease-in-out 300ms;
+}
+
+.File-Actions > button:hover,
+.File-Actions-Edit > button:hover {
+  cursor: pointer;
+  opacity: 0.9;
+  transition: ease-in-out 300ms;
+}

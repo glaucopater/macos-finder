@@ -1,0 +1,9 @@
+.Finder {
+  margin: 4px 0;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  height: calc(100vh - 100px);
+  background: #c8c8c8;
+  overflow-x: auto;
+}

@@ -1,0 +1,34 @@
+.AddFolderButton {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  color: #111;
+  display: block;
+  flex: 1 0 auto;
+  margin: 4px;
+  padding: 4px 8px;
+  position: relative;
+  text-decoration: none;
+  -webkit-user-select: none;
+  user-select: none;
+  transition: ease-in-out 300ms;
+  max-height: 32px;
+}
+
+.AddFolderButton:hover {
+  cursor: pointer;
+  transition: ease-in-out 300ms;
+  background: #effeec;
+}
+
+.AddFolderButton::after {
+  content: "➕";
+  padding: 0 8px;
+}
+
+.AddFolderButton-Input {
+  margin: 2px;
+}
+
+.AddFolderButton-Actions {
+  display: flex;
+}
