@@ -1,7 +1,14 @@
 import { Reducer } from "react";
+import { FileProps } from "../../components/File";
 import { FolderProps } from "../../components/Folder";
 import { initialState } from "../../store";
-import { generateRandomId, sortArrayById } from "../../utils";
+import {
+  generateRandomId,
+  removeFileByFolderIdAndFileId,
+  searchFoldersById,
+  searchFoldersByIdAndAppendFile,
+  sortArrayById,
+} from "../../utils";
 import { ReducerAction, ReducerActionType } from "./actions";
 
 export const useFinderReducer: Reducer<FolderProps[], ReducerAction> = (
@@ -27,32 +34,34 @@ export const useFinderReducer: Reducer<FolderProps[], ReducerAction> = (
     case ReducerActionType.CREATE_FILE:
       const selectedFolderId = action.payload;
       const newId = generateRandomId();
-      const createdFile = { id: newId, content: "📄" + newId };
-      const selectedFolder = state.filter(
-        (folder) => folder.id === selectedFolderId.id
-      )[0];
-      const updatedFolder = {
-        ...selectedFolder,
-        files: [...(selectedFolder.files || []), createdFile],
+      const createdFile: FileProps = {
+        id: newId,
+        content: "📄" + newId,
+        currentFolderId: selectedFolderId.id,
       };
-      const theOtherFolders = state.filter(
-        (folder) => folder.id !== selectedFolder.id
+
+      const selectedFolders = state.filter((folder) =>
+        searchFoldersById(folder, selectedFolderId.id)
       );
-      return sortArrayById([...theOtherFolders, updatedFolder]);
+
+      if (selectedFolders.length) {
+        return state.map((folder) =>
+          searchFoldersByIdAndAppendFile(
+            folder,
+            selectedFolderId.id,
+            createdFile
+          )
+        );
+      }
+      return state;
+
     case ReducerActionType.DELETE_FILE:
       // delete file by folder id and file id
       const { folderId, fileId } = action.payload;
-      const currentFolder = state.find((folder) => folder.id === folderId);
-      const folderToBeUdpated = currentFolder;
-      if (folderToBeUdpated) {
-        folderToBeUdpated.files = currentFolder.files?.filter(
-          (file) => file.id !== fileId
-        );
-      }
-      return sortArrayById([
-        ...state.filter((folder) => folder.id !== folderId),
-        folderToBeUdpated,
-      ]);
+
+      return state.map((folder) =>
+        removeFileByFolderIdAndFileId(folder, folderId, fileId)
+      );
 
     case ReducerActionType.EDIT_FILE: {
       // edit file by content and folder and id

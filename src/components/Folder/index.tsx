@@ -16,7 +16,7 @@ export const Folder = (folderProps: FolderProps) => {
   const initialStore = useContext(FinderContext);
   const { editFolder, addFile, moveFile } =
     (initialStore as ContextProps) || {};
-  const { id, name, files } = folderProps;
+  const { id, name, files, folders } = folderProps;
   const [isEditable, setIsEditable] = useState(false);
   const [currentName, setCurrentName] = useState(name);
 
@@ -93,6 +93,14 @@ export const Folder = (folderProps: FolderProps) => {
         ))}
       </ul>
       <AddFileButton onClickHandler={handleAddFile} folderId={id} />
+      <hr/>
+      <ul className="File-List">
+        {folders?.map((folder, index) => (
+          <li key={index}>
+            <Folder {...folder} />
+          </li>
+        ))}
+      </ul>
     </section>
   );
 };
