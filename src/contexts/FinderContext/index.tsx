@@ -42,7 +42,9 @@ export const FinderProvider = ({ children }: { children: React.ReactNode }) => {
     addFile: (folderId: number) => {
       dispatch({
         type: ReducerActionType.CREATE_FILE,
-        payload: { id: folderId, name: "New!", files: [] },
+        payload: {
+          destinationFolder: { id: folderId, name: "New!", files: [] },
+        },
       });
       dispatch({ type: ReducerActionType.UPDATE_LOCALSTORAGE, payload: state });
     },
@@ -62,9 +64,17 @@ export const FinderProvider = ({ children }: { children: React.ReactNode }) => {
     },
     moveFile: (id: string, fromFolderId: number, toFolderId: number) => {
       dispatch({
-        type: ReducerActionType.MOVE_FILE,
-        payload: { id, fromFolderId, toFolderId },
+        type: ReducerActionType.DELETE_FILE,
+        payload: { folderId: fromFolderId, fileId: id },
       });
+      dispatch({
+        type: ReducerActionType.CREATE_FILE,
+        payload: {
+          destinationFolder: { id: toFolderId, name: "Moved!", files: [] },
+          fileId: id,
+        },
+      });
+
       dispatch({ type: ReducerActionType.UPDATE_LOCALSTORAGE, payload: state });
     },
     loadLocalStorage: () => {

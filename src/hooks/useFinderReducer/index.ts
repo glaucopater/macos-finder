@@ -32,18 +32,17 @@ export const useFinderReducer: Reducer<FolderProps[], ReducerAction> = (
         folderToBeUpdated,
       ]);
     case ReducerActionType.CREATE_FILE:
-      const selectedFolderId = action.payload;
-      const newId = generateRandomId();
+      const { destinationFolder: selectedFolderId, fileId: movedFileId } =
+        action.payload;
+      const newId = movedFileId ?? generateRandomId();
       const createdFile: FileProps = {
         id: newId,
         content: "📄" + newId,
         currentFolderId: selectedFolderId.id,
       };
-
       const selectedFolders = state.filter((folder) =>
         searchFoldersById(folder, selectedFolderId.id)
       );
-
       if (selectedFolders.length) {
         return state.map((folder) =>
           searchFoldersByIdAndAppendFile(
@@ -54,15 +53,12 @@ export const useFinderReducer: Reducer<FolderProps[], ReducerAction> = (
         );
       }
       return state;
-
     case ReducerActionType.DELETE_FILE:
       // delete file by folder id and file id
       const { folderId, fileId } = action.payload;
-
       return state.map((folder) =>
         removeFileByFolderIdAndFileId(folder, folderId, fileId)
       );
-
     case ReducerActionType.EDIT_FILE: {
       // edit file by content and folder and id
       const { file: editedFile, folderId } = action.payload;
@@ -75,27 +71,6 @@ export const useFinderReducer: Reducer<FolderProps[], ReducerAction> = (
       }
       const theOtherFolders = state.filter((folder) => folder.id !== folderId);
       return sortArrayById([...theOtherFolders, folderToBeUpdated]);
-    }
-    case ReducerActionType.MOVE_FILE: {
-      const { id, fromFolderId, toFolderId } = action.payload;
-      // find this folder in store
-      const fromFolder = state.find((folder) => folder.id === fromFolderId);
-      const fromFolderOriginalFile =
-        fromFolder?.files?.find((file) => file.id === id) || null;
-      if (fromFolder) {
-        fromFolder.files = fromFolder.files?.filter((file) => file.id !== id);
-      }
-      const toFolder = state.find((folder) => folder.id === toFolderId);
-      if (toFolder && fromFolderOriginalFile) {
-        toFolder.files = [...(toFolder.files || []), fromFolderOriginalFile];
-      }
-      return sortArrayById([
-        ...state.filter(
-          (folder) => folder.id !== fromFolderId && folder.id !== toFolderId
-        ),
-        fromFolder,
-        toFolder,
-      ]);
     }
     case ReducerActionType.LOAD_LOCALSTORAGE:
       const store = localStorage.getItem("state");

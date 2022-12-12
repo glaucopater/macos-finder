@@ -115,24 +115,19 @@ export function removeFileByFolderIdAndFileId(
   return rootClone;
 }
 
-export function removeFileById(
+export function searchFileById(
   root: FolderProps,
-  id: number,
-  file: FileProps
-): FolderProps {
-  const rootClone = { ...root };
-  if (rootClone.id === id) {
-    return {
-      ...rootClone,
-      files: [...(rootClone.files ? rootClone.files : []), file],
-    };
-  } else if (rootClone.folders) {
-    return {
-      ...rootClone,
-      folders: rootClone.folders.map((folder) =>
-        removeFileById(folder, id, file)
-      ),
-    };
+  fileId: FileProps["id"]
+): FileProps | undefined {
+  if (root.files?.length) {
+    return root.files.find((file) => file.id === fileId);
+  } else if (root.folders) {
+    for (const folder of root.folders) {
+      const result = searchFileById(folder, fileId);
+      if (result) {
+        return result;
+      }
+    }
   }
-  return root;
+  return undefined;
 }
