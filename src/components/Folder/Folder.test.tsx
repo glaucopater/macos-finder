@@ -23,19 +23,19 @@ it("should add a new folder", () => {
       <Finder />
     </FinderContext.Provider>
   );
-  const { getByText } = container;
-  fireEvent.click(getByText("Add Folder"));
-  fireEvent.click(getByText("Save"));
+  const { getAllByText } = container;
+  fireEvent.click(getAllByText("Add Folder")[0]);
+  fireEvent.click(getAllByText("Save")[0]);
   expect(mockContextProps.addFolder).toHaveBeenCalledTimes(1);
 });
 
 it("should add a new file to the finder", () => {
-  const { getByText } = render(
+  const { getAllByText } = render(
     <FinderContext.Provider value={mockContextProps}>
       <Folder {...mockContextProps.folderList[0]} />
     </FinderContext.Provider>
   );
 
-  fireEvent.click(getByText("Add File"));
+  fireEvent.click(getAllByText("Add File")[0]);
   expect(mockContextProps.addFile).toHaveBeenCalledTimes(1);
 });

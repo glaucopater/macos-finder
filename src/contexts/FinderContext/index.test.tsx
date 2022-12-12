@@ -63,7 +63,7 @@ describe("test file actions", () => {
     act(() => {
       dispatch({
         type: ReducerActionType.CREATE_FILE,
-        payload: sampleState[0],
+        payload: { destinationFolder: sampleState[0] },
       });
       dispatch({
         type: ReducerActionType.DELETE_FILE,

@@ -93,7 +93,6 @@ export const Folder = (folderProps: FolderProps) => {
         ))}
       </ul>
       <AddFileButton onClickHandler={handleAddFile} folderId={id} />
-      <hr/>
       <ul className="File-List">
         {folders?.map((folder, index) => (
           <li key={index}>
