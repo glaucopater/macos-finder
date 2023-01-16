@@ -1,6 +1,7 @@
 import { Reducer } from "react";
 import { FileProps } from "../../components/File";
 import { FolderProps } from "../../components/Folder";
+import { LOCALSTORAGE_STATE_KEY } from "../../config";
 import { initialState } from "../../store";
 import {
   generateRandomId,
@@ -32,6 +33,7 @@ export const useFinderReducer: Reducer<FolderProps[], ReducerAction> = (
         folderToBeUpdated,
       ]);
     case ReducerActionType.CREATE_FILE:
+      console.log("action", ReducerActionType.CREATE_FILE, state);
       const { destinationFolder: selectedFolderId, fileId: movedFileId } =
         action.payload;
       const newId = movedFileId ?? generateRandomId();
@@ -73,13 +75,13 @@ export const useFinderReducer: Reducer<FolderProps[], ReducerAction> = (
       return sortArrayById([...theOtherFolders, folderToBeUpdated]);
     }
     case ReducerActionType.LOAD_LOCALSTORAGE:
-      const store = localStorage.getItem("state");
+      const store = localStorage.getItem(LOCALSTORAGE_STATE_KEY);
       return store ? JSON.parse(store) : state;
     case ReducerActionType.UPDATE_LOCALSTORAGE:
-      localStorage.setItem("state", JSON.stringify(state));
+      localStorage.setItem(LOCALSTORAGE_STATE_KEY, JSON.stringify(state));
       return state;
     case ReducerActionType.RESET_FINDER:
-      localStorage.setItem("state", JSON.stringify(initialState));
+      localStorage.setItem(LOCALSTORAGE_STATE_KEY, JSON.stringify(initialState));
       return state;
     default:
       return state;
