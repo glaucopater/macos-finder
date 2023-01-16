@@ -25,7 +25,7 @@ export type EditFolderAction = {
 
 export type CreateFileAction = {
   type: ReducerActionType.CREATE_FILE;
-  payload: FolderProps;
+  payload: { destinationFolder: FolderProps; fileId?: string };
 };
 
 export type MoveFileAction = {
